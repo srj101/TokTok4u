@@ -7,9 +7,14 @@ import {
   useGlobalFilter,
   usePagination,
 } from "react-table";
-import ClientNotesModal from "../../components/ClientNotesModal";
+/*  import ClientNotesModal from "../../components/ClientNotesModal";
 import CreateClient from "../../components/CreateClientModal";
-import UpdateClientModal from "../../components/UpdateClientModal";
+import UpdateClientModal from "../../components/UpdateClientModal";  */
+ import dynamic from 'next/dynamic'
+
+const UpdateClientModal = dynamic(() => import("../../components/UpdateClientModal"), { ssr: false })
+const CreateClient = dynamic(() => import("../../components/CreateClientModal"), { ssr: false })
+const ClientNotesModal = dynamic(() => import("../../components/ClientNotesModal"), { ssr: false }) 
 
 const fetchAllClients = async () => {
   const res = await fetch("/api/v1/clients/all");
@@ -191,6 +196,7 @@ function Table({ columns, data }) {
 }
 
 export default function Clients() {
+
   const { data, status, refetch } = useQuery(
     "fetchAllClients",
     fetchAllClients

@@ -8,9 +8,19 @@ import {
 } from "react-table";
 import Link from "next/link";
 import Loader from "react-spinners/ClipLoader";
+/* import MarkdownPreview from "../../components/MarkdownPreview";
+import TicketsMobileList from "../../components/TicketsMobileList";  */
+ import dynamic from "next/dynamic";
 
-import MarkdownPreview from "../../components/MarkdownPreview";
-import TicketsMobileList from "../../components/TicketsMobileList";
+const MarkdownPreview = dynamic(
+  () => import("../../components/MarkdownPreview"),
+  { ssr: false }
+);
+
+const TicketsMobileList = dynamic(
+  () => import("../../components/TicketsMobileList"),
+  { ssr: false }
+); 
 
 async function getUserTickets() {
   const res = await fetch("/api/v1/ticket/user/open");
@@ -41,9 +51,9 @@ function Table({ columns, data }) {
         rows.filter((row) => {
           const rowValue = row.values[id];
           return rowValue !== undefined
-            ? String(rowValue)
+            ? Number(rowValue)
                 .toLowerCase()
-                .startsWith(String(filterValue).toLowerCase())
+                .startsWith(Number(filterValue).toLowerCase())
             : true;
         }),
     }),

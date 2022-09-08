@@ -1,7 +1,9 @@
 import { useQuery } from "react-query";
-import TicketDetail from "../../components/TicketDetail";
-import { useRouter } from "next/router";
+/* import TicketDetail from "../../components/TicketDetail";
+ */import { useRouter } from "next/router";
+import dynamic from 'next/dynamic'
 
+const TicketDetail = dynamic(() => import("../../components/TicketDetail"), { ssr: false })
 export default function Ticket() {
   const router = useRouter();
 
