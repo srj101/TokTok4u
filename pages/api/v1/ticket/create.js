@@ -23,7 +23,7 @@ export default async function create(req, res) {
           connect: { id: Number(company.id) },
         },
         assignedTo: {
-          connect: { id: Number(engineer.id) },
+          connect: { id: String(engineer.id) },
         },
         isComplete: Boolean(false),
       },

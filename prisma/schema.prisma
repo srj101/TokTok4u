@@ -11,18 +11,57 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
 model User {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now())
-  name      String
-  password  String
-  email     String     @unique
-  isAdmin   Boolean
-  todos     Todos[]
-  tickets   Ticket[]
-  file      UserFile[]
-  notes     Notes[]
+  id            String     @id @default(cuid())
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @default(now())
+  name          String?
+  password      String
+  email         String     @unique
+  isAdmin       Boolean
+  todos         Todos[]
+  tickets       Ticket[]
+  file          UserFile[]
+  notes         Notes[]
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model Ticket {
@@ -39,7 +78,7 @@ model Ticket {
   assignedTo User?        @relation(fields: [userId], references: [id])
   client     Client       @relation(fields: [clientId], references: [id])
   clientId   Int
-  userId     Int
+  userId     String
   TicketFile TicketFile[]
 }
 
@@ -56,16 +95,16 @@ model Client {
 }
 
 model UserFile {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   filename  String
   path      String
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
 }
 
 model TicketFile {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   filename  String
   path      String
@@ -74,27 +113,27 @@ model TicketFile {
 }
 
 model Notes {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   title     String
   note      String
   createdBy User     @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
 }
 
 model Todos {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   text      String
   done      Boolean  @default(false)
   createdBy User     @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
 }
 
 model Webhooks {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   name      String
@@ -103,6 +142,11 @@ model Webhooks {
   active    Boolean
   secret    String?
   createdBy String
+}
+
+model YoutubeApi {
+  id        String @id @default(cuid())
+  channelId String
 }
 
 enum Hook {
