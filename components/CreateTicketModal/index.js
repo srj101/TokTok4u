@@ -49,14 +49,7 @@ export default function CreateTicketModal() {
         }
       });
   };
-  function makeRouting() {
-    const currentPath = window.location.pathname;
-    if (currentPath === "/ticket") {
-      router.reload();
-    } else {
-      router.push("/ticket");
-    }
-  }
+
   async function getUsers() {
     try {
       await fetch(`/api/v1/users/all`, {
@@ -394,7 +387,6 @@ export default function CreateTicketModal() {
                         onClick={() => {
                           setOpen(false);
                           createTicket();
-                          makeRouting();
                         }}
                         type="button"
                         className="w-1/2 mx-auto  inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm disabled:opacity-50 hover:bg-indigo-600 cursor-not-allowed"
