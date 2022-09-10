@@ -12,7 +12,7 @@ datasource db {
 }
 
 model Account {
-  id        Int        @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   userId            Int
   type              String
   provider          String
@@ -31,7 +31,7 @@ model Account {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @default(now())
   name          String?
@@ -44,12 +44,13 @@ model User {
   notes         Notes[]
   emailVerified DateTime?
   image         String?
+  role          String?
   accounts      Account[]
   sessions      Session[]
 }
 
 model Session {
-  id        Int        @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   sessionToken String   @unique
   userId       Int
   expires      DateTime
@@ -95,7 +96,7 @@ model Client {
 }
 
 model UserFile {
-  id        Int        @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   filename  String
   path      String
@@ -104,7 +105,7 @@ model UserFile {
 }
 
 model TicketFile {
-  id        Int        @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   filename  String
   path      String
@@ -113,7 +114,7 @@ model TicketFile {
 }
 
 model Notes {
-  id        Int        @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   title     String
@@ -123,7 +124,7 @@ model Notes {
 }
 
 model Todos {
-  id        Int        @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   text      String
@@ -133,7 +134,7 @@ model Todos {
 }
 
 model Webhooks {
-  id        Int        @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   name      String
@@ -145,7 +146,7 @@ model Webhooks {
 }
 
 model YoutubeApi {
-  id        Int        @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   channelId String
 }
 

@@ -51,10 +51,10 @@ export default function CreateTicketModal() {
   };
   function makeRouting() {
     const currentPath = window.location.pathname;
-    if (currentPath === '/ticket') {
+    if (currentPath === "/ticket") {
       router.reload();
     } else {
-      router.push('/ticket');
+      router.push("/ticket");
     }
   }
   async function getUsers() {
