@@ -1102,14 +1102,14 @@
   "resolved" "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   "version" "0.4.0"
 
-"autoprefixer@^10.0.2", "autoprefixer@^10.4.0":
-  "integrity" "sha512-9fOPpHKuDW1w/0EKfRmVnxTDt8166MAnLI3mgZ1JCnhNtYWxcJ6Ud5CO/AVOZi/AvFa8DY9RTy3h3+tFBlrrdQ=="
-  "resolved" "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.2.tgz"
-  "version" "10.4.2"
+"autoprefixer@^10.0.2", "autoprefixer@10.4.5":
+  "integrity" "sha512-Fvd8yCoA7lNX/OUllvS+aS1I7WRBclGXsepbvT8ZaPgrH24rgXpZzF0/6Hh3ZEkwg+0AES/Osd196VZmYoEFtw=="
+  "resolved" "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.5.tgz"
+  "version" "10.4.5"
   dependencies:
-    "browserslist" "^4.19.1"
-    "caniuse-lite" "^1.0.30001297"
-    "fraction.js" "^4.1.2"
+    "browserslist" "^4.20.2"
+    "caniuse-lite" "^1.0.30001332"
+    "fraction.js" "^4.2.0"
     "normalize-range" "^0.1.2"
     "picocolors" "^1.0.0"
     "postcss-value-parser" "^4.2.0"
@@ -1357,16 +1357,15 @@
   dependencies:
     "pako" "~1.0.5"
 
-"browserslist@^4.14.5", "browserslist@^4.17.5", "browserslist@^4.19.1":
-  "integrity" "sha512-u2tbbG5PdKRTUoctO3NBD8FQ5HdPh1ZXPHzp1rwaa5jTc+RV9/+RlWiAIKmjRPQF+xbGM9Kklj5bZQFa2s/38A=="
-  "resolved" "https://registry.npmjs.org/browserslist/-/browserslist-4.19.1.tgz"
-  "version" "4.19.1"
+"browserslist@^4.14.5", "browserslist@^4.17.5", "browserslist@^4.20.2", "browserslist@>= 4.21.0":
+  "integrity" "sha512-CBHJJdDmgjl3daYjN5Cp5kbTf1mUhZoS+beLklHIvkOWscs83YAhLlF3Wsh/lciQYAcbBJgTOD44VtG31ZM4Hw=="
+  "resolved" "https://registry.npmjs.org/browserslist/-/browserslist-4.21.4.tgz"
+  "version" "4.21.4"
   dependencies:
-    "caniuse-lite" "^1.0.30001286"
-    "electron-to-chromium" "^1.4.17"
-    "escalade" "^3.1.1"
-    "node-releases" "^2.0.1"
-    "picocolors" "^1.0.0"
+    "caniuse-lite" "^1.0.30001400"
+    "electron-to-chromium" "^1.4.251"
+    "node-releases" "^2.0.6"
+    "update-browserslist-db" "^1.0.9"
 
 "browserslist@4.16.6":
   "integrity" "sha512-Wspk/PqO+4W9qp5iUTJsa1B/QrYn1keNCcEP5OvP7WBwT4KaDly0uONYmC6Xa3Z5IqnUgS0KcgLYu1l74x0ZXQ=="
@@ -1460,10 +1459,10 @@
   "resolved" "https://registry.npmjs.org/camelcase/-/camelcase-5.3.1.tgz"
   "version" "5.3.1"
 
-"caniuse-lite@^1.0.30001202", "caniuse-lite@^1.0.30001219", "caniuse-lite@^1.0.30001228", "caniuse-lite@^1.0.30001286", "caniuse-lite@^1.0.30001297":
-  "integrity" "sha512-sS4CaUM+/+vqQUlCvCJ2WtDlV81aWtHhqeEVkLokVJJa3ViN4zDxAGfq9R8i1m90uGHxo99cy10Od+lvn3hf0g=="
-  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001390.tgz"
-  "version" "1.0.30001390"
+"caniuse-lite@^1.0.30001202", "caniuse-lite@^1.0.30001219", "caniuse-lite@^1.0.30001228", "caniuse-lite@^1.0.30001332", "caniuse-lite@^1.0.30001400":
+  "integrity" "sha512-QoblBnuE+rG0lc3Ur9ltP5q47lbguipa/ncNMyyGuqPk44FxbScWAeEO+k5fSQ8WekdAK4mWqNs1rADDAiN5xQ=="
+  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001410.tgz"
+  "version" "1.0.30001410"
 
 "capture-stack-trace@^1.0.0":
   "integrity" "sha512-mYQLZnx5Qt1JgB1WEiMCf2647plpGeQ2NMR/5L0HNZzGQo4fuSPnK+wjfPnKZV0aiJDgzmWqqkV/g7JD+DW0qw=="
@@ -2195,10 +2194,10 @@
     "semver" "^5.6.0"
     "sigmund" "^1.0.1"
 
-"electron-to-chromium@^1.3.723", "electron-to-chromium@^1.4.17":
-  "integrity" "sha512-WhHt3sZazKj0KK/UpgsbGQnUUoFeAHVishzHFExMxagpZgjiGYSC9S0ZlbhCfSH2L2i+2A1yyqOIliTctMx7KQ=="
-  "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.38.tgz"
-  "version" "1.4.38"
+"electron-to-chromium@^1.3.723", "electron-to-chromium@^1.4.251":
+  "integrity" "sha512-vutF4q0dTUXoAFI7Vbtdwen/BJVwPgj8GRg/SElOodfH7VTX+svUe62A5BG41QRQGk5HsZPB0M++KH1lAlOt0A=="
+  "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.258.tgz"
+  "version" "1.4.258"
 
 "elliptic@^6.5.3":
   "integrity" "sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ=="
@@ -2531,10 +2530,10 @@
     "once" "1.4.0"
     "qs" "6.9.3"
 
-"fraction.js@^4.1.2":
-  "integrity" "sha512-o2RiJQ6DZaR/5+Si0qJUIy637QMRudSi9kU/FFzx9EZazrIdnBgpU+3sEWCxAVhH2RtxW2Oz+T4p2o8uOPVcgA=="
-  "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.1.2.tgz"
-  "version" "4.1.2"
+"fraction.js@^4.2.0":
+  "integrity" "sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA=="
+  "resolved" "https://registry.npmjs.org/fraction.js/-/fraction.js-4.2.0.tgz"
+  "version" "4.2.0"
 
 "fs-exists-sync@^0.1.0":
   "integrity" "sha1-mC1ok6+RjnLQjeyehnP/K1qNat0= sha512-cR/vflFyPZtrN6b38ZyWxpWdhlXrzZEBawlpBQMq7033xVY7/kg0GDMBK5jg8lDYQckdJ5x/YC88lM3C7VMsLg=="
@@ -4528,10 +4527,10 @@
   "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-1.1.77.tgz"
   "version" "1.1.77"
 
-"node-releases@^2.0.1":
-  "integrity" "sha512-CqyzN6z7Q6aMeF/ktcMVTzhAHCEpf8SOarwpzpf8pNBY2k5/oM34UHldUwp8VKI7uxct2HxSRdJjBaZeESzcxA=="
-  "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-2.0.1.tgz"
-  "version" "2.0.1"
+"node-releases@^2.0.6":
+  "integrity" "sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg=="
+  "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz"
+  "version" "2.0.6"
 
 "node@^17.4.0":
   "integrity" "sha512-/kPlbyQjDJa9NEOPmKSTmHOxgq+7wAMWNdU+8B9cXseQXTaF3xYAiYc9dCh3fDUxnrLR/DIqiYEQ85ICqSya8A=="
@@ -6886,6 +6885,14 @@
   "integrity" "sha1-0vD3N9FrBhXnKmk17QQhRXLVb5c= sha512-N0XH6lqDtFH84JxptQoZYmloF4nzrQqqrAymNj+/gW60AO2AZgOcf4O/nUXJcYfyQkqvMo9lSupBZmmgvuVXlw=="
   "resolved" "https://registry.npmjs.org/unzip-response/-/unzip-response-2.0.1.tgz"
   "version" "2.0.1"
+
+"update-browserslist-db@^1.0.9":
+  "integrity" "sha512-/xsqn21EGVdXI3EXSum1Yckj3ZVZugqyOZQ/CxYPBD/R+ko9NSUScf8tFF4dOKY+2pvSSJA/S+5B8s4Zr4kyvg=="
+  "resolved" "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.9.tgz"
+  "version" "1.0.9"
+  dependencies:
+    "escalade" "^3.1.1"
+    "picocolors" "^1.0.0"
 
 "update-notifier@^2.3.0":
   "integrity" "sha512-gwMdhgJHGuj/+wHJJs9e6PcCszpxR1b236igrOkUofGhqJuG+amlIKwApH1IW1WWl7ovZxsX49lMBWLxSdm5Dw=="
