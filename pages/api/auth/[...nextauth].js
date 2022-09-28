@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import GithubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
-import Providers from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { prisma } from "../../../prisma/prisma";
 // import EmailProvider from 'next-auth/providers/email'
@@ -73,10 +72,10 @@ export const options = {
   },
 
   database: process.env.DATABASE_URL,
-/*       pages: {
+       pages: {
     signIn: "/auth/login",
     error: "/auth/error",
-  },  */
+  },  
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);

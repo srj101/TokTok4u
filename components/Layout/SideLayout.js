@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Header from '../../components/header'
 
 import CreateTicketModal from "../CreateTicketModal";
 
@@ -272,6 +273,7 @@ export default function SideLayout({ children }) {
                       </Link>
                     ))}
                   </nav>
+                  <Header />
                   <div
                     className={
                       session.user.isAdmin ? "mt-8" : "hidden"
