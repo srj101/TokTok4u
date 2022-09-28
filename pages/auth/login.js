@@ -1,18 +1,21 @@
-import { getCsrfToken } from "next-auth/react";
 import Link from "next/link";
 import SignUpDefaultUser from "../../components/ClientSignupModal";
+import { signIn, getCsrfToken, getProviders } from "next-auth/react";
+import styles from "../../styles/Signin.module.css";
 
 export async function getServerSideProps(context) {
+  const providers = await getProviders();
+  const csrfToken = await getCsrfToken(context);
   return {
     props: {
-      csrfToken: await getCsrfToken(context),
+      providers,
+      csrfToken,
     },
   };
 }
-
-export default function Login({ csrfToken }) {
-/*   console.log(csrfToken);
- */  return (
+export default function Login({ csrfToken, providers }) {
+  /*   console.log(csrfToken);
+   */ return (
     <div>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -81,7 +84,7 @@ export default function Login({ csrfToken }) {
               </div>
 
               <div className="flex items-center justify-between">
-                {/* <div className="flex items-center">
+                <div className="flex items-center">
                   <input
                     id="remember-me"
                     name="remember-me"
@@ -94,16 +97,16 @@ export default function Login({ csrfToken }) {
                   >
                     Remember me
                   </label>
-                </div> */}
+                </div>
 
-                {/* <div className="text-sm">
+                <div className="text-sm">
                   <a
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot your password?
                   </a>
-                </div> */}
+                </div>
               </div>
 
               <div>
@@ -114,8 +117,35 @@ export default function Login({ csrfToken }) {
                   Sign in
                 </button>
               </div>
-              <SignUpDefaultUser/>
+              <SignUpDefaultUser />
+
             </form>
+            <div className={styles.content}>
+              <div className={styles.cardWrapper}>
+                <div className={styles.cardContent}>
+                  <input
+                    name="csrfToken"
+                    type="hidden"
+                    defaultValue={csrfToken}
+                  />
+                  <input
+                    placeholder="Email (Not Setup - Please Use Github)"
+                    size="large"
+                  />
+                  <button className={styles.primaryBtn}>Submit</button>
+                  <hr />
+                  {providers &&
+                    Object.values(providers).map((provider) => (
+                      <div key={provider.name} style={{ marginBottom: 0 }}>
+                        <button onClick={() => signIn(provider.id)}>
+                          Sign in with {provider.name}
+                        </button>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+
           </div>
 
           {/* <div className="mt-6">
