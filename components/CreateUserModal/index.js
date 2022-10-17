@@ -10,6 +10,7 @@ export default function CreateUser() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [admin, setAdmin] = useState(false);
+  const [role, setRole] = useState("");
 
   const router = useRouter();
 
@@ -24,6 +25,7 @@ export default function CreateUser() {
         email,
         name,
         admin,
+        roles: [role],
       }),
     });
   }
@@ -31,6 +33,10 @@ export default function CreateUser() {
   const notificationMethods = [
     { id: "user", title: "user" },
     { id: "admin", title: "admin" },
+    { id: "Role1", title: "Role1" },
+    { id: "Role2", title: "Role2" },
+    { id: "Role3", title: "Role3" },
+    { id: "Role4", title: "Role4" },
   ];
 
   return (
@@ -135,11 +141,13 @@ export default function CreateUser() {
                               defaultChecked={notificationMethod.id === "user"}
                               className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
                               value={notificationMethod.id}
-                              onChange={(e) =>
+                              onChange={(e) => {
+                                setRole(e.target.value);
+                                console.log(role);
                                 e.target.value === "admin"
                                   ? setAdmin(true)
-                                  : setAdmin(false)
-                              }
+                                  : setAdmin(false);
+                              }}
                             />
                             <label
                               htmlFor={notificationMethod.id}

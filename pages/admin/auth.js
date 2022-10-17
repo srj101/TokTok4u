@@ -313,7 +313,11 @@ export default function Auth() {
                             <dt className="sr-only">Role</dt>
                             <dd className="mt-3">
                               <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-                                {user.isAdmin ? "admin" : "user"}
+                                {user.isAdmin
+                                  ? "admin"
+                                  : user.roles.length > 0
+                                  ? JSON.stringify(user.roles)
+                                  : "user"}
                               </span>
                             </dd>
                           </dl>

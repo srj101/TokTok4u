@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
@@ -9,6 +9,11 @@ export default function UpdateUserModal({ user }) {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [admin, setAdmin] = useState(user.isAdmin);
+  const [roles, setRoles] = useState([]);
+  const [role1, setRole1] = useState(false);
+  const [role2, setRole2] = useState(false);
+  const [role3, setRole3] = useState(false);
+  const [role4, setRole4] = useState(false);
 
   const router = useRouter();
 
@@ -28,6 +33,7 @@ export default function UpdateUserModal({ user }) {
         name,
         admin,
         id: user.id,
+        roles: roles,
       }),
     });
   }
@@ -120,16 +126,70 @@ export default function UpdateUserModal({ user }) {
                         <div className="space-y-2 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
                           <span className="relative z-0 inline-flex shadow-sm rounded-md space-x-4">
                             <button
-                              onClick={() => setAdmin(false)}
+                              onClick={() => {
+                                setAdmin(false);
+                              }}
                               type="button"
                               className={
-                                admin === false
+                                admin == false
                                   ? "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-500 text-sm font-medium text-white hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
                                   : "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
                               }
                             >
                               User
                             </button>
+
+                            <button
+                              onClick={() => {
+                                setRole1(!role1);
+                                setRoles(roles.push("Role1"));
+                                setRoles([...new Set(roles)]);
+                                console.log(roles);
+                              }}
+                              type="button"
+                              className={
+                                role1
+                                  ? "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-500 text-sm font-medium text-white hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+                                  : "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+                              }
+                            >
+                              Role1
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setRole2(!role2);
+                                setRoles(roles.push("Role2"));
+                                setRoles([...new Set(roles)]);
+                                console.log(roles);
+                              }}
+                              type="button"
+                              className={
+                                role2
+                                  ? "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-500 text-sm font-medium text-white hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+                                  : "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+                              }
+                            >
+                              Role2
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setRole3(!role3);
+                                setRoles(roles.push("Role3"));
+                                setRoles([...new Set(roles)]);
+                                console.log(roles);
+                              }}
+                              type="button"
+                              className={
+                                role2
+                                  ? "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-500 text-sm font-medium text-white hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+                                  : "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+                              }
+                            >
+                              Role3
+                            </button>
+
                             <button
                               onClick={() => setAdmin(true)}
                               type="button"
@@ -137,7 +197,8 @@ export default function UpdateUserModal({ user }) {
                                 admin === true
                                   ? "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-500 text-sm font-medium text-white hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
                                   : "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
-                              }                            >
+                              }
+                            >
                               Admin
                             </button>
                           </span>

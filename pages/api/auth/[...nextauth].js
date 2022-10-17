@@ -5,17 +5,20 @@ import GithubProvider from "next-auth/providers/github";
 import TwitterProvider from "next-auth/providers/twitter";
 import bcrypt from "bcrypt";
 import { prisma } from "../../../prisma/prisma";
-// import EmailProvider from 'next-auth/providers/email'
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const options = {
   site: process.env.NEXTAUTH_URL,
+  adapter: PrismaAdapter(prisma),
   providers: [
-    /* EmailProvider({
+    EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
-      // maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
-    }), */
+
+      maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
+    }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
@@ -58,6 +61,7 @@ export const options = {
             id: user.id,
             name: user.name,
             isAdmin: user.isAdmin,
+            roles: user.roles,
           };
         } catch (error) {
           throw new Error(error);
@@ -66,27 +70,30 @@ export const options = {
     }),
   ],
   secret: "yudjXHbqE5VH4LkwZ4srgsdL2EZrjp",
+
   session: {
-    jwt: true,
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
 
   database: process.env.DATABASE_URL,
-       pages: {
+  pages: {
     signIn: "/auth/login",
     error: "/auth/error",
-  },  
+    "verify-request": "/auth/verify-request",
+  },
   callbacks: {
     jwt: async ({ token, user }) => {
       user && (token.user = user);
-
       return token;
     },
     async session({ session, token, user }) {
-      session.accessToken = token.accessToken;
-      session.id = token.user.id;
-      session.user.isAdmin = token.user.isAdmin;
-      session.user.id = token.user.id;
+      session.accessToken = token?.accessToken;
+      session.id = token?.user.id;
+      session.user.isAdmin = token?.user.isAdmin;
+      session.user.id = token?.user.id;
+      session.roles = token?.user.roles;
+
       return session;
     },
   },

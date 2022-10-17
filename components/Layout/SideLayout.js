@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Header from '../../components/header'
+import Header from "../../components/header";
 
 import CreateTicketModal from "../CreateTicketModal";
 
@@ -77,6 +77,34 @@ export default function SideLayout({ children }) {
     {
       name: "Settings",
       href: "/admin/settings",
+    },
+  ];
+
+  const role1Nav = [
+    {
+      name: "Role1",
+      href: "/role1",
+    },
+  ];
+
+  const role2Nav = [
+    {
+      name: "Role2",
+      href: "/role2",
+    },
+  ];
+
+  const role3Nav = [
+    {
+      name: "Role3",
+      href: "/role3",
+    },
+  ];
+
+  const role4Nav = [
+    {
+      name: "Role4",
+      href: "/role4",
     },
   ];
 
@@ -204,7 +232,7 @@ export default function SideLayout({ children }) {
                   <div className="flex-shrink-0 flex-col flex p-4">
                     <span className="hidden sm:inline-flex items-center justify-center h-8 w-8 rounded-full bg-gray-500">
                       <span className="text-sm font-medium leading-none text-white uppercase">
-                        {session.user.name[0]}
+                        {JSON.stringify(session.user.name)}
                       </span>
                     </span>
                     <p className="text-base font-medium text-white">
@@ -274,11 +302,7 @@ export default function SideLayout({ children }) {
                     ))}
                   </nav>
                   <Header />
-                  <div
-                    className={
-                      session.user.isAdmin ? "mt-8" : "hidden"
-                    }
-                  >
+                  <div className={session.user.isAdmin ? "mt-8" : "hidden"}>
                     <h3
                       className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
                       id="projects-headline"
@@ -298,6 +322,106 @@ export default function SideLayout({ children }) {
                       ))}
                     </div>
                   </div>
+
+                  <div
+                    className={
+                      session.roles?.includes("Role1") ? "mt-8" : "hidden"
+                    }
+                  >
+                    <h3
+                      className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
+                      id="projects-headline"
+                    >
+                      Role1
+                    </h3>
+                    <div
+                      className="mt-1 space-y-1"
+                      aria-labelledby="projects-headline"
+                    >
+                      {role1Nav.map((item) => (
+                        <Link key={item.name} href={item.href}>
+                          <a className="group flex items-center px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-green-400 hover:text-white">
+                            <span className="truncate">{item.name}</span>
+                          </a>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div
+                    className={
+                      session.roles?.includes("Role2") ? "mt-8" : "hidden"
+                    }
+                  >
+                    <h3
+                      className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
+                      id="projects-headline"
+                    >
+                      Role2
+                    </h3>
+                    <div
+                      className="mt-1 space-y-1"
+                      aria-labelledby="projects-headline"
+                    >
+                      {role2Nav.map((item) => (
+                        <Link key={item.name} href={item.href}>
+                          <a className="group flex items-center px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-green-400 hover:text-white">
+                            <span className="truncate">{item.name}</span>
+                          </a>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div
+                    className={
+                      session.roles?.includes("Role3") ? "mt-8" : "hidden"
+                    }
+                  >
+                    <h3
+                      className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
+                      id="projects-headline"
+                    >
+                      Role3
+                    </h3>
+                    <div
+                      className="mt-1 space-y-1"
+                      aria-labelledby="projects-headline"
+                    >
+                      {role3Nav.map((item) => (
+                        <Link key={item.name} href={item.href}>
+                          <a className="group flex items-center px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-green-400 hover:text-white">
+                            <span className="truncate">{item.name}</span>
+                          </a>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div
+                    className={
+                      session.roles?.includes("Role4") ? "mt-8" : "hidden"
+                    }
+                  >
+                    <h3
+                      className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
+                      id="projects-headline"
+                    >
+                      Role4
+                    </h3>
+                    <div
+                      className="mt-1 space-y-1"
+                      aria-labelledby="projects-headline"
+                    >
+                      {role4Nav.map((item) => (
+                        <Link key={item.name} href={item.href}>
+                          <a className="group flex items-center px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-green-400 hover:text-white">
+                            <span className="truncate">{item.name}</span>
+                          </a>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 <div className="flex-shrink-0 flex border-t border-gray-900 p-4">
                   <div className="flex-shrink-0 w-full group block">
@@ -305,7 +429,7 @@ export default function SideLayout({ children }) {
                       <div>
                         <span className="hidden sm:inline-flex items-center justify-center h-8 w-8 rounded-full bg-gray-500">
                           <span className="text-sm font-medium leading-none text-white uppercase">
-                            {session.user.name[0]}
+                            {JSON.stringify(session.user.name)}
                           </span>
                         </span>
                       </div>

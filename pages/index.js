@@ -69,7 +69,7 @@ export default function Home() {
       }
       if (info.file.status === "done") {
         message.success(`${info.file.name} file uploaded successfully`);
-        setUploaded(true);      
+        setUploaded(true);
       } else if (info.file.status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -102,14 +102,14 @@ export default function Home() {
                 <div className="flex items-center">
                   <span className="hidden sm:inline-flex items-center justify-center h-12 w-12 rounded-full bg-gray-500">
                     <span className="text-lg font-medium leading-none text-white uppercase">
-                      {session.user.name[0]}
+                      {JSON.stringify(session.user.name)}
                     </span>
                   </span>
                   <div>
                     <div className="flex items-center">
                       <span className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-gray-500 sm:hidden">
                         <span className="text-lg font-medium leading-none text-white uppercase">
-                          {session.user.name[0]}
+                          {JSON.stringify(session.user.name)}
                         </span>
                       </span>
                       <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
@@ -190,7 +190,10 @@ export default function Home() {
                   </button>
                 </Upload>
               </div>
-              <ListUserFiles uploaded={uploaded} setUploaded={() => setUploaded()} />
+              <ListUserFiles
+                uploaded={uploaded}
+                setUploaded={() => setUploaded()}
+              />
             </div>
           </div>
         </div>

@@ -2,10 +2,13 @@ import Link from "next/link";
 import SignUpDefaultUser from "../../components/ClientSignupModal";
 import { signIn, getCsrfToken, getProviders } from "next-auth/react";
 import styles from "../../styles/Signin.module.css";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
   const csrfToken = await getCsrfToken(context);
+
   return {
     props: {
       providers,
@@ -14,6 +17,28 @@ export async function getServerSideProps(context) {
   };
 }
 export default function Login({ csrfToken, providers }) {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.checked && localStorage.email !== "") {
+      setChecked(true);
+      setEmail(localStorage.email);
+      setPassword(localStorage.password);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (checked === true) {
+      localStorage.email = email;
+      localStorage.password = password;
+      localStorage.checked = checked;
+    }
+  }, [email, password, checked]);
+
   /*   console.log(csrfToken);
    */ return (
     <div>
@@ -54,11 +79,13 @@ export default function Login({ csrfToken, providers }) {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     name="email"
                     type="email"
                     autoComplete="email"
                     required
+                    value={email}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                   />
                 </div>
@@ -73,11 +100,13 @@ export default function Login({ csrfToken, providers }) {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     name="password"
                     type="password"
                     autoComplete="password"
                     required
+                    value={password}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                   />
                 </div>
@@ -86,9 +115,16 @@ export default function Login({ csrfToken, providers }) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
+                    onChange={() => {
+                      setChecked(!checked);
+                      localStorage.removeItem("checked");
+                      localStorage.removeItem("email");
+                      localStorage.removeItem("password");
+                    }}
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
+                    checked={checked}
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
                   <label
@@ -101,7 +137,7 @@ export default function Login({ csrfToken, providers }) {
 
                 <div className="text-sm">
                   <a
-                    href="#"
+                    href="/auth/forgot-password/"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot your password?
@@ -118,7 +154,6 @@ export default function Login({ csrfToken, providers }) {
                 </button>
               </div>
               <SignUpDefaultUser />
-
             </form>
             <div className={styles.content}>
               <div className={styles.cardWrapper}>
@@ -129,15 +164,29 @@ export default function Login({ csrfToken, providers }) {
                     defaultValue={csrfToken}
                   />
                   <input
-                    placeholder="Email (Not Setup - Please Use Github)"
+                    value={mail}
+                    placeholder="Email"
                     size="large"
+                    onChange={(e) => setMail(e.target.value)}
                   />
-                  <button className={styles.primaryBtn}>Submit</button>
                   <hr />
+
                   {providers &&
                     Object.values(providers).map((provider) => (
                       <div key={provider.name} style={{ marginBottom: 0 }}>
-                        <button onClick={() => signIn(provider.id)}>
+                        <button
+                          onClick={() =>
+                            signIn(provider.id, {
+                              redirect: false,
+                              callbackUrl: `${
+                                router.query.callbackUrl
+                                  ? router.query.callbackUrl
+                                  : window.location.origin
+                              }`,
+                              email: mail,
+                            })
+                          }
+                        >
                           Sign in with {provider.name}
                         </button>
                       </div>
@@ -145,7 +194,6 @@ export default function Login({ csrfToken, providers }) {
                 </div>
               </div>
             </div>
-
           </div>
 
           {/* <div className="mt-6">

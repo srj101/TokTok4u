@@ -4,7 +4,7 @@ import { getSession } from "next-auth/react";
 export default async function getAllClients(req, res) {
   const session = await getSession({ req });
 
-  const { name, email, admin, id } = req.body;
+  const { name, email, admin, id, roles } = req.body;
 
   try {
     if (session.user.isAdmin) {
@@ -14,6 +14,7 @@ export default async function getAllClients(req, res) {
           name,
           email,
           isAdmin: admin,
+          roles: roles,
         },
       });
 

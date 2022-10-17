@@ -35,11 +35,12 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT,
-    "password" TEXT NOT NULL,
+    "password" TEXT,
     "email" TEXT,
-    "isAdmin" BOOLEAN NOT NULL,
+    "isAdmin" BOOLEAN,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
+    "roles" TEXT[],
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
