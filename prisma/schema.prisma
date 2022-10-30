@@ -82,6 +82,8 @@ model Ticket {
   clientId   Int
   userId     Int
   TicketFile TicketFile[]
+
+  lastUpdateBy  String?
 }
 
 model Client {

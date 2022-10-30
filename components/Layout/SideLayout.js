@@ -82,29 +82,29 @@ export default function SideLayout({ children }) {
 
   const role1Nav = [
     {
-      name: "Role1",
+      name: "Admins",
       href: "/role1",
     },
   ];
 
   const role2Nav = [
     {
-      name: "Role2",
+      name: "Users",
       href: "/role2",
     },
   ];
 
   const role3Nav = [
     {
-      name: "Role3",
-      href: "/role3",
+      name: "Support_Team",
+      href: "/support_team",
     },
   ];
 
   const role4Nav = [
     {
-      name: "Role4",
-      href: "/role4",
+      name: "Support_Team_Manager",
+      href: "/support_team_manager",
     },
   ];
 
@@ -325,64 +325,16 @@ export default function SideLayout({ children }) {
 
                   <div
                     className={
-                      session.roles?.includes("Role1") ? "mt-8" : "hidden"
+                      session.roles?.includes("Role3") || session.user.isAdmin
+                        ? "mt-8"
+                        : "hidden"
                     }
                   >
                     <h3
                       className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
                       id="projects-headline"
                     >
-                      Role1
-                    </h3>
-                    <div
-                      className="mt-1 space-y-1"
-                      aria-labelledby="projects-headline"
-                    >
-                      {role1Nav.map((item) => (
-                        <Link key={item.name} href={item.href}>
-                          <a className="group flex items-center px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-green-400 hover:text-white">
-                            <span className="truncate">{item.name}</span>
-                          </a>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      session.roles?.includes("Role2") ? "mt-8" : "hidden"
-                    }
-                  >
-                    <h3
-                      className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
-                      id="projects-headline"
-                    >
-                      Role2
-                    </h3>
-                    <div
-                      className="mt-1 space-y-1"
-                      aria-labelledby="projects-headline"
-                    >
-                      {role2Nav.map((item) => (
-                        <Link key={item.name} href={item.href}>
-                          <a className="group flex items-center px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-green-400 hover:text-white">
-                            <span className="truncate">{item.name}</span>
-                          </a>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      session.roles?.includes("Role3") ? "mt-8" : "hidden"
-                    }
-                  >
-                    <h3
-                      className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
-                      id="projects-headline"
-                    >
-                      Role3
+                      Support Team
                     </h3>
                     <div
                       className="mt-1 space-y-1"
@@ -400,14 +352,16 @@ export default function SideLayout({ children }) {
 
                   <div
                     className={
-                      session.roles?.includes("Role4") ? "mt-8" : "hidden"
+                      session.roles?.includes("Role4") || session.user.isAdmin
+                        ? "mt-8"
+                        : "hidden"
                     }
                   >
                     <h3
                       className="px-3 text-xs font-semibold text-white uppercase tracking-wider"
                       id="projects-headline"
                     >
-                      Role4
+                      Support Team Manager
                     </h3>
                     <div
                       className="mt-1 space-y-1"

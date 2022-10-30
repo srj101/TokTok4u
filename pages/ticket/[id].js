@@ -1,10 +1,14 @@
 import { useQuery } from "react-query";
 /* import TicketDetail from "../../components/TicketDetail";
- */import { useRouter } from "next/router";
-import dynamic from 'next/dynamic'
+ */ import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
 
-const TicketDetail = dynamic(() => import("../../components/TicketDetail"), { ssr: false })
+const TicketDetail = dynamic(() => import("../../components/TicketDetail"), {
+  ssr: false,
+});
 export default function Ticket() {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const fetchTicketById = async () => {
@@ -14,6 +18,8 @@ export default function Ticket() {
   };
 
   const { data, status } = useQuery("fetchTickets", fetchTicketById);
+
+  console.log(data);
 
   return (
     <div>
@@ -33,7 +39,7 @@ export default function Ticket() {
 
       {status === "success" && (
         <div>
-          <TicketDetail ticket={data.tickets} />
+          <TicketDetail ticket={data.tickets} author={session.user.name} />
         </div>
       )}
     </div>

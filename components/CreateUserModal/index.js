@@ -33,10 +33,10 @@ export default function CreateUser() {
   const notificationMethods = [
     { id: "user", title: "user" },
     { id: "admin", title: "admin" },
-    { id: "Role1", title: "Role1" },
-    { id: "Role2", title: "Role2" },
-    { id: "Role3", title: "Role3" },
-    { id: "Role4", title: "Role4" },
+    // { id: "Role1", title: "Role1" },
+    // { id: "Role2", title: "Role2" },
+    { id: "Role3", title: "Support_Team" },
+    { id: "Role4", title: "Support_Team_Manager" },
   ];
 
   return (
@@ -128,7 +128,7 @@ export default function CreateUser() {
                       <label className="text-base font-medium text-gray-900 mt-2">
                         User Type
                       </label>
-                      <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                      <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-2">
                         {notificationMethods.map((notificationMethod) => (
                           <div
                             key={notificationMethod.id}

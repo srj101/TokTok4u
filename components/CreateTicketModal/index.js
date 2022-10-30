@@ -2,7 +2,17 @@ import React, { useState, useEffect, Fragment, useRef } from "react";
 import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import dynamic from "next/dynamic";
-import { Select, Form, Input, Radio, Space } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import {
+  Select,
+  Form,
+  Input,
+  Radio,
+  Space,
+  Button,
+  message,
+  Upload,
+} from "antd";
 
 // import MDEditor from '@uiw/react-md-editor';
 import rehypeSanitize from "rehype-sanitize";
@@ -11,7 +21,6 @@ import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 
 import UploadMultiFiles from "../../components/UploadMultiFiles";
-import { useRouter } from "next/router";
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 function classNames(...classes) {
@@ -31,9 +40,55 @@ export default function CreateTicketModal() {
   const [priority, setPriority] = useState("Normal");
   const [options, setOptions] = useState([]);
   const [users, setUsers] = useState([]);
-  const router = useRouter();
+
+  const [fileList, setFileList] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const cancelButtonRef = useRef(null);
+
+  // upload files from ticket modal- rakibul
+  const handleUpload = (id) => {
+    const formData = new FormData();
+    console.log(fileList[0]);
+    // fileList.forEach((file) => {
+    formData.append("file", fileList[0]);
+    formData.append("ticket", id);
+    formData.append("title", title);
+    formData.append("company", company);
+    formData.append("details", issue);
+    // });
+    setUploading(true); // You can use any AJAX library you like
+    // /api/v1/ticket/3/file/upload
+    fetch(`/api/v1/ticket/${id}/file/upload`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setFileList([]);
+        // message.success('upload successfully.');
+      })
+      .catch(() => {
+        message.error("file upload  failed.");
+      })
+      .finally(() => {
+        setUploading(false);
+      });
+  };
+
+  const props = {
+    onRemove: (file) => {
+      const index = fileList.indexOf(file);
+      const newFileList = fileList.slice();
+      newFileList.splice(index, 1);
+      setFileList(newFileList);
+    },
+    beforeUpload: (file) => {
+      setFileList([...fileList, file]);
+      return false;
+    },
+    fileList,
+  };
 
   const fetchClients = async () => {
     await fetch(`/api/v1/clients/all`, {
@@ -70,7 +125,7 @@ export default function CreateTicketModal() {
   }
 
   async function createTicket() {
-    await fetch("/api/v1/ticket/create", {
+    fetch("/api/v1/ticket/create", {
       method: "POST",
       headers: {
         "content-type": "application/sjon",
@@ -84,10 +139,41 @@ export default function CreateTicketModal() {
         detail: issue,
         priority,
       }),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        handleUpload(data.id);
+        const formData = new FormData();
+        console.log(fileList[0]);
+        fileList.forEach((file) => {
+          formData.append("file", fileList[0]);
+          formData.append("ticket", data.id);
+          formData.append("title", title);
+          formData.append("company", company);
+          formData.append("details", issue);
+        });
+        setUploading(true); // You can use any AJAX library you like
+
+        fetch(`/api/v1/ticket/${data.id}/file/upload`, {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then(() => {
+            setFileList([]);
+            message.success("upload successfully.");
+          })
+          .catch(() => {
+            message.error("file upload upload failed.");
+          })
+          .finally(() => {
+            setUploading(false);
+          });
+      });
+    // console.log(res);
   }
-  const isEnabled =
-    name.length > 0 &&
+  const isEnabled = true;
+  name.length > 0 &&
     title.length > 0 &&
     email.length > 0 &&
     issue.length > 0 &&
@@ -354,7 +440,10 @@ export default function CreateTicketModal() {
                         )}
                       </Listbox>
                       <div>
-                        <UploadMultiFiles />
+                        {/* <UploadMultiFiles /> */}
+                        <Upload {...props}>
+                          <Button icon={<UploadOutlined />}>Select File</Button>
+                        </Upload>
                       </div>
                       <MDEditor
                         onChange={setIssue}
@@ -385,8 +474,9 @@ export default function CreateTicketModal() {
                       <button
                         disabled={!isEnabled}
                         onClick={() => {
-                          setOpen(false);
                           createTicket();
+                          setOpen(false);
+                          // handleUpload(11);
                         }}
                         type="button"
                         className="w-1/2 mx-auto  inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm disabled:opacity-50 hover:bg-indigo-600 cursor-not-allowed"

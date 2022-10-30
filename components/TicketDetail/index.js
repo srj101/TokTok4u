@@ -28,7 +28,7 @@ export default function TicketDetail(props) {
   const history = useRouter();
 
   const { id } = history.query;
-
+  console.log(id);
   let file = [];
 
   useEffect(() => {
@@ -53,6 +53,7 @@ export default function TicketDetail(props) {
         detail: issue,
         note,
         title,
+        lastUpdateby: props.author,
       }),
     }).then((res) => res.json());
   }
@@ -441,7 +442,10 @@ export default function TicketDetail(props) {
                   </svg>
                   <span className="text-gray-900 text-sm font-medium">
                     Last updated{" "}
-                    <span>{moment(ticket.updatedAt).format("DD/MM/YYYY")}</span>
+                    <span>
+                      {moment(ticket.updatedAt).format("DD/MM/YYYY")}{" "}
+                      {ticket.lastUpdateBy && `by ${ticket.lastUpdateBy}`}
+                    </span>
                   </span>
                 </div>
               </div>

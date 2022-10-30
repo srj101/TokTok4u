@@ -1,5 +1,9 @@
 const { prisma } = require("../../../../prisma/prisma");
 
+import { Novu } from "@novu/node";
+
+const novu = new Novu(process.env.NOVU_TOKEN);
+
 export default async function create(req, res) {
   const { name, company, detail, title, priority, email, engineer, issue } =
     JSON.parse(req.body);
@@ -44,12 +48,23 @@ export default async function create(req, res) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            data: `Ticket ${data.id} created by ${data.name} -> ${data.email}. Priority -> ${data.priority}`
+            data: `Ticket ${data.id} created by ${data.name} -> ${data.email}. Priority -> ${data.priority}`,
           }),
           redirect: "follow",
         });
       }
     }
+
+    await novu.trigger("creating-a-new-ticket", {
+      to: {
+        subscriberId: data.email,
+        email: data.email,
+      },
+      payload: {
+        name: data.name,
+        email: data.email,
+      },
+    });
 
     res.status(200).json({ message: "Ticket created correctly" });
   } catch (error) {

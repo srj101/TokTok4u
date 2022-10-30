@@ -2,6 +2,10 @@ const { prisma } = require("../../../../../prisma/prisma");
 import { getSession } from "next-auth/react";
 import bcrypt from "bcrypt";
 
+import { Novu } from "@novu/node";
+
+const novu = new Novu(process.env.NOVU_TOKEN);
+
 export default async function createUser(req, res) {
   const session = await getSession({ req });
   const { email, password, name, admin, roles } = req.body;
@@ -20,6 +24,18 @@ export default async function createUser(req, res) {
           roles: roles,
         },
       });
+
+      await novu.trigger("create-new-user", {
+        to: {
+          subscriberId: email,
+          email: email,
+        },
+        payload: {
+          name: name,
+          email: email,
+        },
+      });
+
       res
         .status(200)
         .json({ message: "User saved successfully", failed: false });
